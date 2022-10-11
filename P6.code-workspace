@@ -1,0 +1,13 @@
+{
+	"folders": [
+		{
+			"path": "../../../brouillons-des-cours/brouillon P6 Go_Full_Stack"
+		},
+		{
+			"path": ".."
+		}
+	],
+	"settings": {
+		"liveServer.settings.multiRootWorkspaceName": "Code"
+	}
+}
