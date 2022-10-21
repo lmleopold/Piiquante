@@ -4,12 +4,14 @@ module.exports = {
     es2021: true,
     node: true
   },
-  extends: 'standard',
+  extends: "standard",
   overrides: [
   ],
   parserOptions: {
-    ecmaVersion: 'latest'
+    ecmaVersion: "latest"
   },
   rules: {
+    semi: [2, "always"],
+    quotes: [2, "double"]
   }
-}
+};
