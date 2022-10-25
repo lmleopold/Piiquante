@@ -94,16 +94,25 @@ exports.like = (req, res, next) => {
       sauce => {
         switch ( req.body.like ) {
           case 1:{
-            sauce.usersLiked.push(req.auth.userId);
-            sauce.likes += 1;
-            saveSauce( sauce, "Objet liké !", res );
-            break;
+            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1) {
+              sauce.usersLiked.push(req.auth.userId);
+              sauce.likes += 1;
+              saveSauce( sauce, "Objet liké !", res );
+              break;
+            } else {
+              return (res.status(400).json({ error: "Vous avez déjà liké cette sauce !" }));
+            }
           }
           case -1:{
-            sauce.usersDisliked.push(req.auth.userId);
-            sauce.dislikes += 1;
-            saveSauce( sauce, "Objet disliké !", res );
-            break;
+            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1) {
+              console.log("coucou");
+              sauce.usersDisliked.push(req.auth.userId);
+              sauce.dislikes += 1;
+              saveSauce( sauce, "Objet disliké !", res );
+              break;
+            } else {
+              return (res.status(400).json({ error: "Vous avez déjà disliké cette sauce !" }));
+            }
           }
           case 0:{
             const indexUserLiked = sauce.usersLiked.findIndex((e) => (e = req.auth.userId));
@@ -119,6 +128,10 @@ exports.like = (req, res, next) => {
             } else {
               return (res.status(400).json({ error: "Vous tentez de supprimer un like/dislike qui n'existe pas pour cette sauce !" }));
             };
+            break;
+          }
+          default:{
+            return (res.status(400).json({ error: "la requete est incorrecte" }));
           }
         }
       })

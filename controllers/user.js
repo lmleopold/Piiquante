@@ -3,17 +3,23 @@ const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
 exports.signup = (req, res, next) => {
-  bcrypt.hash(req.body.password, 10)
-    .then(hash => {
-      const user = new User({
-        email: req.body.email,
-        password: hash
-      });
-      user.save()
-        .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
-        .catch(error => res.status(400).json({ error }));
-    })
-    .catch(error => res.status(500).json({ error }));
+  let regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  if (regExp.test(req.body.password)) {
+    bcrypt.hash(req.body.password, 10)
+      .then(hash => {
+        const user = new User({
+          email: req.body.email,
+          password: hash
+        });
+        user.save()
+          .then(() => res.status(201).json({ message: "Utilisateur créé !" }))
+          .catch(error => res.status(400).json({ error }));
+      })
+      .catch(error => res.status(500).json({ error }));
+  } else {
+    return (res.status(400).json({ error: "le mot de passe doit présenter : \n- au moins 8 caractères \n- au moins 1 majuscule, 1 minuscule, et 1 chiffre \n- peut contenir un caractère spécial" }));
+    // alert("le mot de passe doit présenter : \n- au moins 8 caractères \n- au moins 1 majuscule, 1 minuscule, et 1 chiffre \n- peut contenir un caractère spécial");
+  }
 };
 
 exports.login = (req, res, next) => {
