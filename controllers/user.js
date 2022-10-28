@@ -2,8 +2,24 @@ const User = require("../models/User");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");
 
-exports.signup = (req, res, next) => {
-  let regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+/**
+ * Login/signup request body expects:
+ * @typedef {object} showReqAuthBody
+ * @property {string} email
+ * @property {string} password
+ */
+
+/**
+ * Création d'un utilisateur
+ * Le mot de passe doit répondre à un pattern
+ * Si pattern valide, alors mdp est crypté (salé 10 fois) et sauvé en BDD avec son email
+ * @param {express.Request<showReqAuthBody>} req - Express request object
+ * @param {express.Response} res - Express response object
+ * @returns {undefined || Object <error>}
+ */
+exports.signup = (req, res) => {
+  const regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  // le mot de passe doit présenter : - au moins 8 caractères - au moins 1 majuscule, 1 minuscule, et 1 chiffre - peut contenir un caractère spécial"
   if (regExp.test(req.body.password)) {
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
@@ -22,27 +38,34 @@ exports.signup = (req, res, next) => {
   }
 };
 
-exports.login = (req, res, next) => {
+/**
+ * Login d'un utilisateur:
+ * Vérifie l'existence de son email en BDD
+ * Si le password est valide (suite au controle bcrypt), renvoit un token chiffré avec la clé privée (à modifier pour la prod) + l'userId au frontend
+ * @param {express.Request} req - Express request object
+ * @param {express.Response} res - Express response object
+ */
+exports.login = (req, res) => {
   User.findOne({ email: req.body.email })
     .then(user => {
       if (!user) {
         return res.status(401).json({ error: "Utilisateur non trouvé !" });
       }
-      bcrypt.compare(req.body.password, user.password)
+      bcrypt.compare(req.body.password, user.password) // comparaison par bcrypt du hash obtenu par chiffrement du req.body.password avec le hash associé à l'email en BDD
         .then(valid => {
           if (!valid) {
-            return res.status(401).json({ error: "Mot de passe incorrect !" });
+            return res.status(401).json({ error: "Couple Utilisateur / mot de passe incorrect !" });
           }
           res.status(200).json({
             userId: user._id,
             token: jwt.sign(
-              { userId: user._id },
-              "RANDOM_TOKEN_SECRET",
-              { expiresIn: "24h" }
+              { userId: user._id }, // le token contiendra le userId
+              "RANDOM_TOKEN_SECRET", // clé de chiffrement du token
+              { expiresIn: "24h" } // le token sera valide 24h
             )
           });
         })
-        .catch(error => res.status(500).json({ error }));
+        .catch(error => res.status(500).json({ error })); // la comparaison bcrypt n'a pas été exécutée
     })
-    .catch(error => res.status(500).json({ error }));
+    .catch(error => res.status(500).json({ error })); // le serveur n'a pa pu exécuter sa recherche
 };
