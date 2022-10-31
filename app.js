@@ -35,10 +35,12 @@ const app = express();
  * X-Permitted-Cross-Domain-Policies: none
  * X-XSS-Protection: 0
  */
-app.use(helmet());
+app.use(helmet({
+  crossOriginResourcePolicy: false
+}));
 
 /**
- * Ajouts de headers à l'objet Response pour permettre
+ * CORS configuration: Ajouts de headers à l'objet Response pour permettre
  * le transfert de ressources entre 2 serveurs distincts
  */
 app.use((req, res, next) => {

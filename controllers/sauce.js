@@ -128,7 +128,8 @@ exports.deleteSauce = (req, res) => {
 };
 
 /**
- * Crée un like ou dislike à une sauce ciblée (si req.body.like=1 ou -1) --> son créateur (_userId) est ajouté à [usersLiked] ou [usersDisliked]
+ * Vérifie qu'il n'existe pas encore un userId identique dans le tableau usersLiked/usersDisliked.
+ * Si oui, crée un like ou dislike à une sauce ciblée (si req.body.like=1 ou -1) --> son créateur (_userId) est ajouté à [usersLiked] ou [usersDisliked]
  * Ou bien supprime le like/dislike existant (si req.body.like=0)et de même pour le _userId des tab [usersLiked] ou [usersDisliked]
  * Renvoit un msg d'erreur pour une requete incorrecte (si req.body.like>1 ou req.body.like<-1)
  * @param {express.Request} req - Express request object
@@ -140,23 +141,23 @@ exports.like = (req, res) => {
       sauce => {
         switch ( req.body.like ) {
           case 1:{
-            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1) {
+            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1 && sauce.usersDisliked.findIndex((e) => (e = req.auth.userId)) === -1) {
               sauce.usersLiked.push(req.auth.userId);
               sauce.likes += 1;
               saveSauce( sauce, "Objet liké !", res );
               break;
             } else {
-              return (res.status(400).json({ error: "Vous avez déjà liké cette sauce !" }));
+              return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" }));
             }
           }
           case -1:{
-            if (sauce.usersDisliked.findIndex((e) => (e = req.auth.userId)) === -1) {
+            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1 && sauce.usersDisliked.findIndex((e) => (e = req.auth.userId)) === -1) {
               sauce.usersDisliked.push(req.auth.userId);
               sauce.dislikes += 1;
               saveSauce( sauce, "Objet disliké !", res );
               break;
             } else {
-              return (res.status(400).json({ error: "Vous avez déjà disliké cette sauce !" }));
+              return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" }));
             }
           }
           case 0:{
