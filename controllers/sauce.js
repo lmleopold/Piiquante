@@ -1,6 +1,7 @@
 /* eslint-disable space-in-parens */
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
+const { error } = require("console");
 
 /**
  * @typedef {object} showObjectSauce
@@ -91,7 +92,7 @@ exports.modifySauce = (req, res) => {
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
       if (sauce.userId !== req.auth.userId) {
-        res.status(401).json({ message: "Not authorized" });
+        res.status(403).json({ message: "Not authorized" });
       } else {
         Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
           .then(() => res.status(200).json({ message: "Sauce modifiée !" }))
@@ -147,7 +148,11 @@ exports.like = (req, res) => {
               saveSauce( sauce, "Objet liké !", res );
               break;
             } else {
+<<<<<<< HEAD
               return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" }));
+=======
+              return (res.status(400).json({ Error }));
+>>>>>>> 9743f71 (suppression des commentaires pour les msg d'erreur)
             }
           }
           case -1:{
@@ -157,7 +162,11 @@ exports.like = (req, res) => {
               saveSauce( sauce, "Objet disliké !", res );
               break;
             } else {
+<<<<<<< HEAD
               return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" }));
+=======
+              return (res.status(400).json({ Error }));
+>>>>>>> 9743f71 (suppression des commentaires pour les msg d'erreur)
             }
           }
           case 0:{
@@ -172,12 +181,12 @@ exports.like = (req, res) => {
               sauce.dislikes--;
               saveSauce( sauce, "dislike supprimé !", res );
             } else {
-              return (res.status(400).json({ error: "Vous tentez de supprimer un like/dislike qui n'existe pas pour cette sauce !" })); // l'utilisateur n'a pas liké/disliké la sauce
+              return (res.status(400).json(error)); // l'utilisateur n'a pas liké/disliké la sauce
             };
             break;
           }
           default:{
-            return (res.status(400).json({ error: "la requete est incorrecte" })); // requête incorrecte
+            return (res.status(400).json({ Error })); // requête incorrecte
           }
         }
       })
