@@ -1,7 +1,6 @@
 /* eslint-disable space-in-parens */
 const Sauce = require("../models/Sauce");
 const fs = require("fs");
-const { error } = require("console");
 
 /**
  * @typedef {object} showObjectSauce
@@ -89,6 +88,8 @@ exports.modifySauce = (req, res) => {
       }
     : { ...req.body };
   delete sauceObject._userId; // suppr _userId du frontend pour se baser sur le _userId du token (req.auth.userId)
+  if ("usersLiked" in sauceObject) delete sauceObject.usersLiked; // Empeche la modification des likes/dislike autrement que par la route .../like ou /dislike
+  if ("usersDisliked" in sauceObject) delete sauceObject.usersDisliked;
   Sauce.findOne({ _id: req.params.id })
     .then((sauce) => {
       if (sauce.userId !== req.auth.userId) {
@@ -142,31 +143,24 @@ exports.like = (req, res) => {
       sauce => {
         switch ( req.body.like ) {
           case 1:{
-            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1 && sauce.usersDisliked.findIndex((e) => (e = req.auth.userId)) === -1) {
+            if ((sauce.usersLiked.findIndex((e) => (e === req.auth.userId)) === -1) && (sauce.usersDisliked.findIndex((e) => (e === req.auth.userId)) === -1)) {
               sauce.usersLiked.push(req.auth.userId);
               sauce.likes += 1;
               saveSauce( sauce, "Objet liké !", res );
               break;
             } else {
-<<<<<<< HEAD
-              return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" }));
-=======
+              console.log("================");
               return (res.status(400).json({ Error }));
->>>>>>> 9743f71 (suppression des commentaires pour les msg d'erreur)
             }
           }
           case -1:{
-            if (sauce.usersLiked.findIndex((e) => (e = req.auth.userId)) === -1 && sauce.usersDisliked.findIndex((e) => (e = req.auth.userId)) === -1) {
+            if ((sauce.usersLiked.findIndex((e) => (e === req.auth.userId)) === -1 && sauce.usersDisliked.findIndex((e) => (e === req.auth.userId)) === -1)) {
               sauce.usersDisliked.push(req.auth.userId);
               sauce.dislikes += 1;
               saveSauce( sauce, "Objet disliké !", res );
               break;
             } else {
-<<<<<<< HEAD
-              return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" }));
-=======
               return (res.status(400).json({ Error }));
->>>>>>> 9743f71 (suppression des commentaires pour les msg d'erreur)
             }
           }
           case 0:{
@@ -181,7 +175,7 @@ exports.like = (req, res) => {
               sauce.dislikes--;
               saveSauce( sauce, "dislike supprimé !", res );
             } else {
-              return (res.status(400).json(error)); // l'utilisateur n'a pas liké/disliké la sauce
+              return (res.status(400).json({ Error })); // l'utilisateur n'a pas liké/disliké la sauce
             };
             break;
           }

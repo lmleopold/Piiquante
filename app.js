@@ -3,13 +3,14 @@ const express = require("express");
 const helmet = require("helmet");
 const mongoose = require("mongoose");
 const path = require("path");
+require("dotenv").config();
 
 // Import des routes
 const userRoutes = require("./routes/user");
 const sauceRoutes = require("./routes/sauce");
 
 // Connexion à la BDD MongoDB
-mongoose.connect("mongodb+srv://AdminLM:LMAdminz38U@piiquantedb.aulqrpo.mongodb.net/test?retryWrites=true&w=majority",
+mongoose.connect(`mongodb+srv://${process.env.IDENTIFIANT}:${process.env.SECRET_KEY}@piiquantedb.aulqrpo.mongodb.net/test?retryWrites=true&w=majority`,
   {
     useNewUrlParser: true,
     useUnifiedTopology: true
