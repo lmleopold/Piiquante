@@ -97,7 +97,7 @@ exports.modifySauce = (req, res) => {
       } else {
         Sauce.updateOne({ _id: req.params.id }, { ...sauceObject, _id: req.params.id })
           .then(() => res.status(200).json({ message: "Sauce modifiée !" }))
-          .catch(error => res.status(401).json({ error }));
+          .catch(error => res.status(401).json({ error: error + "La sauce n'a pas été modifiée"}));
       }
     })
     .catch((error) => {
@@ -120,7 +120,7 @@ exports.deleteSauce = (req, res) => {
         fs.unlink(`images/${filename}`, () => { // fs permet de supprimer physiquement l'image de la sauce
           Sauce.deleteOne({ _id: req.params.id }) // méthode propre au modèle mongoose qui suppr l'elt de la BDD
             .then(() => { res.status(200).json({ message: "Sauce supprimée !" }); })
-            .catch(error => res.status(401).json({ error }));
+            .catch(error => res.status(401).json({ error: error + "La sauce n'a pas été supprimée" }));
         });
       }
     })
@@ -150,7 +150,7 @@ exports.like = (req, res) => {
               break;
             } else {
               console.log("================");
-              return (res.status(400).json({ Error }));
+              return (res.status(400).json({ error: "vous avez déjà liké ou disliké cette sauce" }));
             }
           }
           case -1:{
@@ -160,7 +160,7 @@ exports.like = (req, res) => {
               saveSauce( sauce, "Objet disliké !", res );
               break;
             } else {
-              return (res.status(400).json({ Error }));
+              return (res.status(400).json({ error: "vous avez déjà liké ou disliké cette sauce" }));
             }
           }
           case 0:{
@@ -175,16 +175,16 @@ exports.like = (req, res) => {
               sauce.dislikes--;
               saveSauce( sauce, "dislike supprimé !", res );
             } else {
-              return (res.status(400).json({ Error })); // l'utilisateur n'a pas liké/disliké la sauce
+              return (res.status(400).json({ error: "Vous avez déjà liké/disliké cette sauce !" })); // l'utilisateur n'a pas liké/disliké la sauce
             };
             break;
           }
           default:{
-            return (res.status(400).json({ Error })); // requête incorrecte
+            return (res.status(400).json({ error: "la requete est incorrecte" })); // requête incorrecte
           }
         }
       })
     .catch(error => {
-      res.status(400).json({ error }); // la sauce ciblée est introuvable
+      res.status(400).json({ error: error + "la sauce ciblée est introuvable" }); // la sauce ciblée est introuvable
     });
 };
