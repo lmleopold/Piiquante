@@ -1,3 +1,5 @@
+![Capture d'écran de mon projet](Page_acceuil.png)
+
 # PIIQUANTE: Projet 6 du Parcours OpenClassrooms - Construction d'une API REST pour une application d'avis gastronomique #
 
 This is the back end server for the PIIQUANTE Website.
