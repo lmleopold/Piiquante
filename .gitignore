@@ -45,6 +45,6 @@ Thumbs.db
 
 
 #BACKEND
-backend/evaluation
+evaluation
 backend/.env
 images
