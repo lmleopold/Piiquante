@@ -19,9 +19,10 @@ require("dotenv").config();
  * @returns {undefined || Object <error>}
  */
 exports.signup = (req, res) => {
-  const regExp = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
   // le mot de passe doit présenter : - au moins 8 caractères - au moins 1 majuscule, 1 minuscule, et 1 chiffre - peut contenir un caractère spécial"
-  if (regExp.test(req.body.password)) {
+  const exigencesMotDePasse = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[a-zA-Z]).{8,}$/;
+  if (exigencesMotDePasse.test(req.body.password)) {
+    // Hash le mot de passe et l'enregistre dans la base de données
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
@@ -34,8 +35,8 @@ exports.signup = (req, res) => {
       })
       .catch(error => res.status(500).json({ error }));
   } else {
+    // Le mot de passe ne respecte pas les exigences
     return (res.status(400).json({ error: "le mot de passe doit présenter : \n- au moins 8 caractères \n- au moins 1 majuscule, 1 minuscule, et 1 chiffre \n- peut contenir un caractère spécial" }));
-    // alert("le mot de passe doit présenter : \n- au moins 8 caractères \n- au moins 1 majuscule, 1 minuscule, et 1 chiffre \n- peut contenir un caractère spécial");
   }
 };
 
