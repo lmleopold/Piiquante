@@ -11,7 +11,7 @@ require("dotenv").config();
  */
 
 /**
- * Création d'un utilisateur
+ * Création d'un utilisateur.
  * Le mot de passe doit répondre à un pattern
  * Si pattern valide, alors mdp est crypté (salé 10 fois) et sauvé en BDD avec son email
  * @param {express.Request<showReqAuthBody>} req - Express request object
