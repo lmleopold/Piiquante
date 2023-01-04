@@ -3,8 +3,10 @@ import { catchError, mapTo, of, Subject, tap, throwError } from 'rxjs';
 import { Sauce } from '../models/Sauce.model';
 import { HttpClient } from '@angular/common/http';
 import { AuthService } from './auth.service';
+import { environment } from 'src/environments/environment';
 
-const serverUrl = process.env['SERVER_URL'] || 'http://localhost:3000';
+const serverUrl = environment.BACKEND_URL || 'http://localhost:3000';
+console.log(serverUrl);
 @Injectable({
   providedIn: 'root',
 })

@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { BehaviorSubject, tap } from 'rxjs';
 import { Router } from '@angular/router';
+import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root',
@@ -14,7 +15,7 @@ export class AuthService {
   constructor(private http: HttpClient, private router: Router) {}
 
   createUser(email: string, password: string) {
-    const serverUrl = process.env['SERVER_URL'] || 'http://localhost:3000';
+    const serverUrl = environment.BACKEND_URL || 'http://localhost:3000';
     return this.http.post<{ message: string }>(`${serverUrl}/api/auth/signup`, {
       email: email,
       password: password,
@@ -30,7 +31,7 @@ export class AuthService {
   }
 
   loginUser(email: string, password: string) {
-    const serverUrl = process.env['SERVER_URL'] || 'http://localhost:3000';
+    const serverUrl = environment.BACKEND_URL || 'http://localhost:3000';
     return this.http
       .post<{ userId: string; token: string }>(`${serverUrl}/api/auth/login`, {
         email: email,
