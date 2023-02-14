@@ -27,6 +27,7 @@ Create / modify a sauce![Create / modify a sauce](Add_Sauce.png) Like/dislike a 
 A list of technologies used within the project:
 * ![Node.JS](https://nodejs.org/)
 * ![MongoDB](https://www.mongodb.com/)
+* ![Angular.JS](https://angularjs.org/)
 
 |Libraries                                    |version|
 |:--------------------------------------------|---|
