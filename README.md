@@ -21,8 +21,8 @@ Checkout here for more details about the technical specifications of this projec
 
 Checkout the URL to take a look : https://lmleopold.github.io/Ohmyfood/
 ### Screenshots
-Login Page![Log in Page](login.png)|Home Page![Home Page]( Page_acceuil.png)
-Create / modify a sauce![Create / modify a sauce](Add_Sauce.png)| Like/dislike a sauce![Like/dislike a sauce]( Like_Sauce.png)
+Login Page![Log in Page](login.png) Home Page![Home Page]( Page_acceuil.png)
+Create / modify a sauce![Create / modify a sauce](Add_Sauce.png) Like/dislike a sauce![Like/dislike a sauce]( Like_Sauce.png)
 ## Technologies
 ***
 A list of technologies used within the project:
