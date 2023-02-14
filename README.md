@@ -6,6 +6,7 @@
 ## General Info
 ***
 [![Project Status: Inactive – The project has reached a stable, usable state but is no longer being actively developed; support/maintenance will be provided as time allows.](https://www.repostatus.org/badges/latest/inactive.svg)](https://www.repostatus.org/#inactive)
+
 The objective is to develop a hot sauce review web application (named Hot Sauces), allowing users to upload their favorite hot sauces and to like or dislike those shared by others
 The different parts of this project were:
 * build a noSQL database with MongoDB
