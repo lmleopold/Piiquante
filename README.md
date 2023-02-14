@@ -29,9 +29,9 @@ A list of technologies used within the project:
 * ![Node.JS](https://nodejs.org/)
 * ![MongoDB](https://www.mongodb.com/)
 
-|Libraries                                    |
-|:--------------------------------------------|
-|![bcrypt:^5.1.0](https://www.bcrypt.fr/)     |
+|Libraries                                    |version|
+|:--------------------------------------------|---|
+|![bcrypt](https://www.bcrypt.fr/)     |^5.1.0|
 |![dotenv:^16.0.3](https://www.npmjs.com/package/dotenv)|
 |![express:^4.18.1](https://expressjs.com/)   |
 |![jsonwebtoken:^8.5.1]( https://jwt.io/)     |
