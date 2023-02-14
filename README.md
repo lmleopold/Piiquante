@@ -21,8 +21,8 @@ Checkout here for more details about the technical specifications of this projec
 
 Checkout the URL to take a look : https://lmleopold.github.io/Ohmyfood/
 ### Screenshots
-|Login Page![Log in Page](login.png)|![Home Page]( Page_acceuil.png)|
-|![Create / modify a sauce](Add_Sauce.png)|![Like/dislike a sauce]( Like_Sauce.png)|
+Login Page![Log in Page](login.png)|Home Page![Home Page]( Page_acceuil.png)
+Create / modify a sauce![Create / modify a sauce](Add_Sauce.png)| Like/dislike a sauce![Like/dislike a sauce]( Like_Sauce.png)
 ## Technologies
 ***
 A list of technologies used within the project:
@@ -31,13 +31,13 @@ A list of technologies used within the project:
 
 |Libraries                                    |version|
 |:--------------------------------------------|---|
-|![bcrypt](https://www.bcrypt.fr/)     |^5.1.0|
-|![dotenv:^16.0.3](https://www.npmjs.com/package/dotenv)|
-|![express:^4.18.1](https://expressjs.com/)   |
-|![jsonwebtoken:^8.5.1]( https://jwt.io/)     |
-|![mongoose:^6.6.5]( https://mongoosejs.com/) |
-|![mongoose-unique-validator:^3.1.0](https://www.npmjs.com/package/mongoose-unique-validator)|
-|![multer:^1.4.5]( https://www.npmjs.com/package/multer)|
+|![bcrypt](https://www.bcrypt.fr/)     |5.1.0|
+|![dotenv](https://www.npmjs.com/package/dotenv)|16.0.3|
+|![express](https://expressjs.com/)   |4.18.1|
+|![jsonwebtoken]( https://jwt.io/)     |8.5.1|
+|![mongoose]( https://mongoosejs.com/) |6.6.5|
+|![mongoose-unique-validator](https://www.npmjs.com/package/mongoose-unique-validator)|3.1.0|
+|![multer]( https://www.npmjs.com/package/multer)|1.4.5|
 
 ## Installation
 ***
