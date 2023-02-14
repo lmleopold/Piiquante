@@ -19,7 +19,6 @@ The different parts of this project were:
 Checkout here for more details about the technical specifications of this project :
 * [technical_sepcifications]( Requirements_DW_P6.pdf)
 
-Checkout the URL to take a look : https://lmleopold.github.io/Ohmyfood/
 ### Screenshots
 Login Page![Log in Page](login.png) Home Page![Home Page]( Page_acceuil.png)
 Create / modify a sauce![Create / modify a sauce](Add_Sauce.png) Like/dislike a sauce![Like/dislike a sauce]( Like_Sauce.png)
@@ -46,14 +45,16 @@ A list of technologies used within the project:
 You will need to have `Node` and `npm` installed locally on your machine. 
 You will need a `MongoDB` Account
 
+### Back end Installation ###
+
+Clone this repo. From the "backend" folder of the project, run `npm install`. 
+
 This project uses `.dotenv` to protect sensitive data related to the use of the MongoDB database. You must create a `.env`file at the root of the "backend" folder and add the following informations:
 >IDENTIFIANT="enter your MongoDB username"
 >PASSWORD="enter your MongoDB password"
 >SECRET_KEY="enter your random secret token"
 
-### Back end Installation ###
-
-Clone this repo. From the "backend" folder of the project, run `npm install`. You can then run the server with `node server`. 
+You can then run the server with `node server`. 
 The server should run on `localhost` with default port `3000`. If the
 server runs on another port for any reason, this is printed to the
 console when the server starts, e.g. `Listening on port 3001`.
