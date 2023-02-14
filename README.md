@@ -16,12 +16,12 @@ The different parts of this project were:
 * manage user anthentication securely with JSON Webtoken
 * improve API security with the Helmet module
 
-Checkout here for more details about the technical specifications and mockups of this project :
+Checkout here for more details about the technical specifications of this project :
 * [technical_sepcifications]( Requirements_DW_P6.pdf)
 
 Checkout the URL to take a look : https://lmleopold.github.io/Ohmyfood/
 ### Screenshots
-|![Log in Page](login.png)|![Home Page]( Page_acceuil.png)|
+|Login Page![Log in Page](login.png)|![Home Page]( Page_acceuil.png)|
 |![Create / modify a sauce](Add_Sauce.png)|![Like/dislike a sauce]( Like_Sauce.png)|
 ## Technologies
 ***
